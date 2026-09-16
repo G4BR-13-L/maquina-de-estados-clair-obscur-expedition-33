@@ -1,4 +1,6 @@
 package atores
 
-class Expedicionario {
+
+class Expedicionario(id: Int, nome: String) : Combatente(id, nome) {
+
 }

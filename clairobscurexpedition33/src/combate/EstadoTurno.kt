@@ -1,1 +1,3 @@
+package combate
+
 interface EstadoTurno

@@ -1,4 +1,8 @@
-import CombatenteEmBatalha
+package factories
+
+import atores.Expedicionario
+import atores.Inimigo
+import combate.CombatenteEmBatalha
 import combate.Batalha
 
 internal class BatalhaFactory(private val expedicionarios: List<Expedicionario>, private val inimigos: List<Inimigo>) {

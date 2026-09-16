@@ -1,3 +1,8 @@
+package factories
+
+import atores.Expedicionario
+import atores.Expedidion33
+
 internal class Expedition33Factory {
     fun build(): Expedidion33 {
         var lune: Expedicionario = Expedicionario(1, "Lune")

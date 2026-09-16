@@ -1,6 +1,6 @@
 package combate.estados
 
-import EstadoTurno
+import combate.EstadoTurno
 
 internal class SelecaoDeAcao(var personagemAtivoId: Int, var paDisponivel: Int) : EstadoTurno
 

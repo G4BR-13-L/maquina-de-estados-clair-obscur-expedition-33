@@ -1,3 +1,5 @@
+package atores
+
 abstract class Combatente(var id: Int, var nome: String) {
     var nivel = 0;
     var vida: Int = 0

@@ -1,3 +1,8 @@
+package factories
+
+import atores.Inimigo
+import utils.Utils
+
 internal class InimigoFactory {
     fun buildByNivel(nivel: Int): Inimigo {
         var id: Int = Utils().randomInt()

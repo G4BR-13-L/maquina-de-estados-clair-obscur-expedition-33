@@ -1,3 +1,5 @@
+package utils
+
 internal class Utils {
 
     fun randomInt(): Int {

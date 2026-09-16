@@ -1,3 +1,5 @@
+package atores
+
 internal class Expedidion33(val expedicionarios: Map<Int, Expedicionario>) {
     var equipe1: List<Int> = listOf(1, 2, 3)
         get() = field
