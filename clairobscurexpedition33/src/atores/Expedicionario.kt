@@ -1,0 +1,4 @@
+package atores
+
+class Expedicionario {
+}
