@@ -1,25 +1,32 @@
 package factories
 
+import atores.Combatente
 import atores.Expedicionario
 import atores.Inimigo
+import atores.Time
 import combate.CombatenteEmBatalha
 import combate.Batalha
 
 internal class BatalhaFactory(private val expedicionarios: List<Expedicionario>, private val inimigos: List<Inimigo>) {
 
-    fun build() : Batalha {
-        var expedicionariosEmBatalha: ArrayList<CombatenteEmBatalha<Expedicionario>> = arrayListOf();
+    fun build(): Batalha {
+        var listCombatenteEmBatalha: ArrayList<CombatenteEmBatalha> = arrayListOf();
         for (expedicionario in expedicionarios) {
-            val expedicionarioEmBatalha = CombatenteEmBatalha<Expedicionario>(expedicionario);
-            expedicionariosEmBatalha.add(expedicionarioEmBatalha)
+            val expedicionarioEmBatalha = CombatenteEmBatalha(expedicionario, Time.EXPEDICAO33);
+            listCombatenteEmBatalha.add(expedicionarioEmBatalha)
         }
 
-        var inimigosEmBatalha: ArrayList<CombatenteEmBatalha<Inimigo>> = arrayListOf();
         for (inimigo in inimigos) {
-            val inimigoEmBatalha: CombatenteEmBatalha<Inimigo> = CombatenteEmBatalha<Inimigo>(inimigo);
-            inimigosEmBatalha.add(inimigoEmBatalha)
+            val inimigoEmBatalha: CombatenteEmBatalha = CombatenteEmBatalha(inimigo, Time.INIMIGO);
+            listCombatenteEmBatalha.add(inimigoEmBatalha)
         }
 
-        return Batalha(expedicionariosEmBatalha, inimigosEmBatalha)
+        var combatentes: ArrayList<Combatente> = arrayListOf()
+        combatentes.addAll(expedicionarios)
+        combatentes.addAll(inimigos)
+
+        var turnos = GeradorDeTurnos().gerarTurnos(combatentes)
+
+        return Batalha(combatenteEmBatalhas, inimigosEmBatalha, turnos)
     }
 }

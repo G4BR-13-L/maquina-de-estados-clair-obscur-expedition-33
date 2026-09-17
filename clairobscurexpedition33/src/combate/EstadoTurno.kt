@@ -1,3 +1,3 @@
 package combate
 
-interface EstadoTurno
+open class EstadoTurno{}
