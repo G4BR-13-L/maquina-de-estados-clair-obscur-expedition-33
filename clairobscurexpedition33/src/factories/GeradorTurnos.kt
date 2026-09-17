@@ -1,26 +1,27 @@
 package factories
 
 import atores.Combatente
+import combate.CombatenteEmBatalha
 import combate.Turno
 import kotlin.random.Random
 
 class GeradorDeTurnos(private val random: Random = Random.Default) {
 
     private class EstadoCombatente(
-        val combatente: Combatente,
+        val combatenteEmBatalha: CombatenteEmBatalha,
         var pesoAtual: Int
     )
 
-    fun gerarTurnos(combatentes: List<Combatente>, quantidadeTurnos: Int = 20): List<Turno> {
+    fun gerarTurnos(combatentes: List<CombatenteEmBatalha>, quantidadeTurnos: Int = 20): List<Turno> {
         require(combatentes.isNotEmpty()) { "A lista de combatentes não pode ser vazia" }
 
         // Inicializa o peso de cada um com sua agilidade base
-        val estados = combatentes.map { EstadoCombatente(it, it.agilidade) }
+        val estados = combatentes.map { EstadoCombatente(it, it.combatente.agilidade) }
 
         return List(quantidadeTurnos) {
             val escolhido = sortearComPesos(estados)
             atualizarPesos(estados, escolhido)
-            Turno(escolhido.combatente)
+            Turno(escolhido.combatenteEmBatalha)
         }
     }
 
@@ -45,7 +46,7 @@ class GeradorDeTurnos(private val random: Random = Random.Default) {
                 estado.pesoAtual = 0
             } else {
                 // Quem não jogou: acumula urgência somando sua agilidade base
-                estado.pesoAtual += estado.combatente.agilidade
+                estado.pesoAtual += estado.combatenteEmBatalha.combatente.agilidade
             }
         }
     }

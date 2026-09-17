@@ -1,28 +1,28 @@
 package combate
 
-import atores.Combatente
-import combate.estados.ExecutandoHabilidade
-import combate.estados.Neutro
-import combate.estados.SelecaoDeAcao
+import atores.habilidades.Habilidade
 
-class Turno (val combatenteEmBatalha: CombatenteEmBatalha){
+class Turno(val combatente: CombatenteEmBatalha) {
 
-    var estado: EstadoTurno = Neutro()
+    var estado: EstadoTurno = EstadoTurno.Neutro
+        private set
 
-    fun transicionar(estado: EstadoTurno) {
-        if (estado is Neutro) {
-            this.estado = SelecaoDeAcao()
-        }
-
-        if (estado is SelecaoDeAcao) {
-            this.estado = SelecaoDeAcao()
+    fun iniciar() {
+        if (estado is EstadoTurno.Neutro) {
+            combatente.PA = (combatente.PA + 1).coerceAtMost(5)
+            estado = EstadoTurno.SelecaoDeAcao
         }
     }
 
-    fun executarHabilidade(habilidade: Habilidade, paDisponivel: Int) {
-        if (this.estado is SelecaoDeAcao) {
-            this.estado = ExecutandoHabilidade()
+    fun prepararHabilidade(habilidade: Habilidade): Boolean {
+        if (estado is EstadoTurno.SelecaoDeAcao && combatente.PA >= habilidade.custoPA) {
+            estado = EstadoTurno.ExecutandoAcao(habilidade)
+            return true
         }
+        return false
     }
 
+    fun finalizar() {
+        estado = EstadoTurno.Finalizado
+    }
 }
